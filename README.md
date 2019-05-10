@@ -43,5 +43,5 @@ This will be done via command line on your Magento server. You will have to make
     2. Click on API Keys in the left menu.  
     3. If you don't have a key for your domain then enter your domain name and click Create
     4. Copy the generated key and paste into the API Key field in the Peakhour.io settings section
-7 Enter your domain name and save config
-8 Click 'Test Connection', you will hopefully see 'Success!'
+7. Enter your domain name and save config
+8. Click 'Test Connection', you will hopefully see 'Success!'
