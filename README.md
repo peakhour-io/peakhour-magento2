@@ -26,10 +26,11 @@ This is only available for Magento 2.2.x and greater, see the [official magento 
 This will be done via command line on your Magento server. You will have to make sure [you have composer installed](https://getcomposer.org/download/). 
 
 * composer require peakhour/magento2
-* composer update
+* bin/magento module:enable Peakhour_Cdn
 * php bin/magento setup:upgrade
 * php bin/magento cache:clean
-* php bin/magento setup:di:compile
+
+Then you can log in to the Magento admin and finish configuration.
 
 ## Configuration
 
