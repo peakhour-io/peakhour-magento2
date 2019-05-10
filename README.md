@@ -39,9 +39,9 @@ This will be done via command line on your Magento server. You will have to make
 4. Select Peakhour.io from the dropdown for Caching Application
 5. Expand the Peakhour.io Settings section
 6. Enter your Peakhour API Key:
-6.1 Log in to your Peakhour account
-6.2 Click on API Keys in the left menu.  
-6.3 If you don't have a key for your domain then enter your domain name and click Create
-6.4 Copy the generated key and paste into the API Key field in the Peakhour.io settings section
-6.5 Enter your domain name and save config
-6.6 Click 'Test Connection', you will hopefully see 'Success!'
+    1. Log in to your Peakhour account
+    2. Click on API Keys in the left menu.  
+    3. If you don't have a key for your domain then enter your domain name and click Create
+    4. Copy the generated key and paste into the API Key field in the Peakhour.io settings section
+7 Enter your domain name and save config
+8 Click 'Test Connection', you will hopefully see 'Success!'
