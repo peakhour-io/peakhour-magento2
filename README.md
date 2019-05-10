@@ -1,4 +1,4 @@
-#Peakhour website acceleration for Magento 2
+# Peakhour website acceleration for Magento 2
 
 Congratulations on choosing to use Peakhour for your Magento 2 store. The Peakhour_Cdn extension
 uses Magento's built in page caching functionality to list Peakhour.io as a full page cache option.
