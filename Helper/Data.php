@@ -4,7 +4,6 @@ namespace Peakhour\Cdn\Helper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Module\ModuleListInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Psr\Log\LoggerInterface;
 use Peakhour\Cdn\Model\Config;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
@@ -25,10 +24,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     private $config;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
 
     /**
      * Data constructor.
@@ -36,19 +31,16 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * @param ModuleListInterface $moduleList
      * @param StoreManagerInterface $storeManager
      * @param Config $config
-     * @param LoggerInterface $logger
      */
     public function __construct(
         Context $context,
         ModuleListInterface $moduleList,
         StoreManagerInterface $storeManager,
-        Config $config,
-        LoggerInterface $logger
+        Config $config
     ) {
         $this->moduleList = $moduleList;
         $this->storeManager = $storeManager;
         $this->config = $config;
-        $this->logger = $logger;
 
         parent::__construct($context);
     }
@@ -59,7 +51,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function debug($message)
     {
         if ($this->config->isDebugEnabled()) {
-            $this->logger->debug($message);
+            $this->_logger->debug($message);
         }
     }
 }
