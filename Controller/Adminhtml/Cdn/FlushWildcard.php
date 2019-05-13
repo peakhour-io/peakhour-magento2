@@ -44,13 +44,24 @@ class FlushWildcard extends Action
 
             // check if url is given
             $url = $this->getRequest()->getParam('url', false);
+            $result = null;
 
-            $response = $this->api->purgeWildcard($url);
-            
-            if ($response['success']) {
-                $this->messageManager->addSuccessMessage(
-                    $this->__($response['body'])
-                );
+            if (empty($url)) {
+                $result = 'Please enter a path to flush';
+            } else if (preg_match('/^[\*\/]+$/', $url) && $url != '/') { //are there only * and / in there?
+                $result = 'Please include characters other than * and /';
+            }
+
+            if ($result != null) {
+                $this->messageManager->addError($result);
+            } else {
+                $response = $this->api->purgeWildcard($url);
+
+                if ($response['success']) {
+                    $this->messageManager->addSuccessMessage(
+                        $response['body']
+                    );
+                }
             }
         }
 
