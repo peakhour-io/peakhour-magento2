@@ -9,8 +9,6 @@ class Api
 {
 
     const FLUSH_ALL = 'all';
-    const FLUSH_CDN = 'cdn';
-    const FLUSH_PAGESPEED = 'pagespeed';
 
     /**
      * @var Config $config,
