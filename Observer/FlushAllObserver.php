@@ -43,7 +43,7 @@ class FlushAllObserver implements ObserverInterface
     {
         if ($this->config->getType() == Config::PEAKHOUR && $this->config->isEnabled()) {
 //            $event = $observer->getEvent();
-            $this->api->purgeAll(API::FLUSH_CDN);
+            $this->api->purgeAll(API::FLUSH_ALL);
         }
     }
 }
