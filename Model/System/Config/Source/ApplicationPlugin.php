@@ -3,6 +3,7 @@
 namespace Peakhour\Cdn\Model\System\Config\Source;
 
 use Magento\PageCache\Model\System\Config\Source\Application;
+use Peakhour\Cdn\Model\Config;
 
 class ApplicationPlugin
 {
