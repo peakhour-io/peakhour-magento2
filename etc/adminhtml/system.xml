@@ -31,7 +31,7 @@
               <validate>required-entry</validate>
             </field>
           <depends>
-            <field id="caching_application">peakhour</field>
+            <field id="caching_application">56</field>
           </depends>
         </group>
       </group>
