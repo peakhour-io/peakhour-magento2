@@ -8,12 +8,12 @@ class ApplicationPlugin
 {
     public function afterToOptionArray(Application $application, $optionArray)
     {
-        return array_merge($optionArray, [['value' => 'peakhour', 'label' => 'Peakhour.io']]);
+        return array_merge($optionArray, [['value' => Config::PEAKHOUR, 'label' => 'Peakhour.io']]);
     }
 
     public function afterToArray(Application $application, $optionArray)
     {
-        $optionArray['peakhour'] ='Peakhour.io';
+        $optionArray[Config::PEAKHOUR] = 'Peakhour.io';
         return $optionArray;
     }
 }
