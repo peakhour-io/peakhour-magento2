@@ -8,7 +8,7 @@ class Config extends \Magento\PageCache\Model\Config
     /**
      * Cache types
      */
-    const PEAKHOUR = 'peakhour';
+    const PEAKHOUR = 56;
 
     /**
      * XML path to API Key
