@@ -8,10 +8,11 @@
         "magento/module-page-cache": ">=100.4.0",
         "magento/module-cache-invalidate": ">=100.4.0",
         "magento/framework": ">=103.0.0",
+        "laminas/laminas-http": "^2.6.0",
         "ext-json": "*"
     },
     "type": "magento2-module",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "license": "BSD-3-Clause",
     "autoload": {
         "files": [ "registration.php" ],
