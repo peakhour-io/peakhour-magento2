@@ -55,45 +55,44 @@ class Api
 
         return json_encode(array('paths' => $paths, 'inverse' => $inverse, 'flush_type' => $flushType, 'purge_all' => $purgeAll));
     }
-
+    
     function doRequest($url, $method, $body=null, $apiKey=null)
     {
         if (is_null($apiKey)) {
             $apiKey = $this->config->getApiKey();
         }
 
-        $headers = array(
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $apiKey,
-            'Content-Type' => 'application/json',
-        );
+        $headers = new \Laminas\Http\Headers();
+    	$headers->addHeaderLine('Accept', 'application/json');
+    	$headers->addHeaderLine('Authorization', 'Bearer ' . $apiKey);
+    	$headers->addHeaderLine('Content-Type', 'application/json');
 
         $this->helper->debug($method . ' ' . $url . ' ' . $body . '' . $apiKey);
 
         try {
+            $client = new \Laminas\Http\Client();
+            $request = new \Laminas\Http\Request();
 
-            $client = new \Zend_Http_Client();
-
-            $client->setUri($url);
-            $client->setHeaders($headers);
+            $request->setUri($url);
+            $request->setHeaders($headers);
             if (!is_null($body)) {
-                $client->setRawData($body);
+                $request->setContent($body);
             }
+	        $request->setMethod($method);
 
-            $response = $client->request($method);
+            $response = $client->send($request);
 
-
-            if ($response->isError()) {
+            if (!$response->isOk()) {
                 throw new \Exception('Error in response (' . $response->getStatus() . ') ' . $response->getBody());
             }
-            $this->helper->debug("returning");
+
             return array('success' => true, 'error' => null, 'body' => $response->getBody());
         } catch (\Exception $e) {
             $this->helper->debug("Failed $method to $url: " . $e->getMessage());
             return array('success' => false, 'error' => $e->getMessage());
         }
     }
-
+    
     function getResourcesUrl($domain=null)
     {
         if (is_null($domain)) {
