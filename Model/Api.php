@@ -3,12 +3,16 @@
 namespace Peakhour\Cdn\Model;
 
 use Peakhour\Cdn\Helper\Data;
-
+use Laminas\Http\ClientFactory;
+use Laminas\Http\HeadersFactory;
+use Laminas\Http\Request;
+use Laminas\Http\RequestFactory;
 
 class Api
 {
 
     const FLUSH_ALL = 'all';
+    public const PURGE_TIMEOUT = 10;
 
     /**
      * @var Config $config,
@@ -25,13 +29,22 @@ class Api
      * Api constructor.
      * @param Config $config
      * @param Data $helper
+     * @param ClientFactory $clientFactory
+     * @param RequestFactory $requestFactory
+     * @param HeadersFactory $headersFactory
      */
     public function __construct(
         Config $config,
-        Data $helper
+        Data $helper,
+        ClientFactory        $clientFactory,
+        RequestFactory       $requestFactory,
+        HeadersFactory $headersFactory
     ) {
         $this->config = $config;
         $this->helper = $helper;
+        $this->clientFactory = $clientFactory;
+        $this->requestFactory = $requestFactory;
+        $this->headersFactory = $headersFactory;
     }
 
 
@@ -62,7 +75,8 @@ class Api
             $apiKey = $this->config->getApiKey();
         }
 
-        $headers = new \Laminas\Http\Headers();
+        $headers = $this->headersFactory->create();
+
     	$headers->addHeaderLine('Accept', 'application/json');
     	$headers->addHeaderLine('Authorization', 'Bearer ' . $apiKey);
     	$headers->addHeaderLine('Content-Type', 'application/json');
@@ -70,20 +84,24 @@ class Api
         $this->helper->debug($method . ' ' . $url . ' ' . $body . '' . $apiKey);
 
         try {
-            $client = new \Laminas\Http\Client();
-            $request = new \Laminas\Http\Request();
+            $client = $this->clientFactory->create();
+            $client->setOptions([
+                'timeout'      => self::PURGE_TIMEOUT,
+                'httpversion' => '1.1'
+            ]);
+            $request = $this->requestFactory->create();
 
             $request->setUri($url);
             $request->setHeaders($headers);
             if (!is_null($body)) {
                 $request->setContent($body);
             }
-	        $request->setMethod($method);
+	    $request->setMethod($method);
 
             $response = $client->send($request);
 
             if (!$response->isOk()) {
-                throw new \Exception('Error in response (' . $response->getStatus() . ') ' . $response->getBody());
+                throw new \Exception('Error in response (' . $response->getStatusCode() . ') ' . $response->getBody());
             }
 
             return array('success' => true, 'error' => null, 'body' => $response->getBody());
