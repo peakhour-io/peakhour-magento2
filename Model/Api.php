@@ -19,12 +19,26 @@ class Api
      */
     private $config;
 
-
     /**
      * @var Data
      */
     private $helper;
-
+	
+    /**
+     * @var ClientFactory
+     */
+    private $clientFactory;
+	
+    /**
+     * @var RequestFactory
+     */
+    private $requestFactory;
+	
+    /**
+     * @var HeadersFactory
+     */
+    private $headersFactory;
+    
     /**
      * Api constructor.
      * @param Config $config
